@@ -1,14 +1,107 @@
 <!DOCTYPE html>
 <html>
+<head>
+<script src="jquery-1.10.2.js"></script>
+</head>
+
 <body>
 
 <title>Knowledge Vision Presentation Inspector</title>
 <h1>Knowledge Vision XML extractor</h1>
 
-<textarea rows="10" cols="30">
+<script>
+//this parser takes XML and turns it into readable data
+function parseData(xmlText){
+    
+    var $title, $displayName, $shortDescription, $thumbnail, 
+        $organization, $duration, $appName, $appVersion;
+    /*
+     * try to strip xmlText of text in the beginning 
+     */
+    var firstIndex = xmlText.indexOf("<");
+    xmlText = xmlText.replace(xmlText.substring(0,firstIndex),"");
+
+    try{  
+    xmlDoc = $.parseXML(xmlText);
+    }
+    catch(err){
+      alert("Incorrect XML. Check input.");
+      return;
+    }
+   
+    $meta = $( xmlDoc ).find("project").children("metadata");
+    $title = $meta.find("title");
+    $displayName = $meta.find("displayName");
+    $shortDescription = $meta.find("shortDescription");
+    $thumbnail = $meta.find("thumbnail");
+    $organization = $meta.find("organization");
+    $duration = $meta.find("duration");
+    $appName = $meta.find("appName");
+    $appVersion = $meta.find("appVersion");
+     
+     
+    $( "#title" ).html( $title.text() );
+    $( "#displayName" ).html( $displayName.text() );
+    $( "#shortDescription" ).html( $shortDescription.text() );
+    $( "#thumbnail" ).html( $thumbnail.text() );
+    $( "#organization" ).html( $organization.text() );
+    $( "#duration" ).html( $duration.text() );
+    $( "#appName" ).html( $appName.text() );
+    $( "#appVersion" ).html( $appVersion.text() );
+}
+
+</script>
+
+<!-- get the XML and pass it to the script -->
+<textarea rows="20" cols="50" name="textbox1" id ="textbox1" type="text">
 </textarea>
+<input name="Extract Data"
+ onclick="parseData(document.getElementById('textbox1').value)" type="button"
+ value="Extract Data"/>
 
-<button type="button" onclick="parser.js">Extract Data</button>
 
+
+
+
+<table border="1">
+<tr>
+<th>Metadata</th>
+<th>Value</th>
+</tr>
+<tr>
+<td>title</td>
+<td id="title"></td>
+</tr>
+<tr>
+<td>displayName</td>
+<td id="displayName"></td>
+</tr>
+<tr>
+<td>shortDescription</td>
+<td id="shortDescription"></td>
+</tr>
+<tr>
+<td>thumbnail</td>
+<td id="thumbnail"></td>
+</tr>
+<tr>
+<td>organization</td>
+<td id="organization"></td>
+</tr>
+<tr>
+<td>duration</td>
+<td id="duration"></td>
+</tr>
+<tr>
+<td>appName</td>
+<td id="appName"></td>
+</tr>
+<tr>
+<td>appVersion</td>
+<td id="appVersion"></td>
+</tr>
+
+
+</table>
 </body>
 </html>
