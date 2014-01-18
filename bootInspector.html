@@ -6,12 +6,6 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
   </head>
   <body>
     <h1>Knowledge Vision XML extractor</h1>
@@ -23,7 +17,6 @@
     <script>
     //this parser takes XML and turns it into readable data
     function parseData(xmlText){
-        alert(hi); 
         var $title, $displayName, $shortDescription, $thumbnail, 
             $organization, $duration, $appName, $appVersion;
         /*
@@ -33,7 +26,7 @@
         xmlText = xmlText.replace(xmlText.substring(0,firstIndex),"");
     
         try{  
-        xmlDoc = $.parseXML(xmlText);
+          xmlDoc = $.parseXML(xmlText);
         }
         catch(err){
           alert("Incorrect XML. Check input.");
@@ -62,17 +55,12 @@
     }
     </script>
 
-    <textarea rows="20"  class="form-control" placeholder="Text input" name="textbox1" id ="textbox1" type="text">
-    </textarea>
-   <!-- <input name="Extract Data" 
-     onclick = "parseData(document.getElementById('textbox1').value)" type="button"
-     value="Extract Data" /> -->
-   <input value="Extract" onclick = "alert("hi") type = "button"/>
-    
-    
-    
-    
-    <table border="1" class="table table-hover">
+    <textarea rows="20" class="form-control" name="textbox1" id ="textbox1" type="text"></textarea>
+    <input name="Extract Data"
+     onclick = "parseData(document.getElementById('textbox1').value)" 
+     type="button" class="btn btn-default" value="Extract Data" /> 
+     
+    <table border="1"  class="table table-hover">
     <tr>
     <th>Metadata</th>
     <th>Value</th>
