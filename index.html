@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>KV Presentation Inspector</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <h1>Knowledge Vision XML extractor</h1>
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+    //this parser takes XML and turns it into readable data
+    function parseData(xmlText){
+        var $title, $displayName, $shortDescription, $thumbnail, 
+            $organization, $duration, $appName, $appVersion;
+        /*
+         * try to strip xmlText of text in the beginning 
+         */
+        var firstIndex = xmlText.indexOf("<");
+        xmlText = xmlText.replace(xmlText.substring(0,firstIndex),"");
+    
+        try{  
+          xmlDoc = $.parseXML(xmlText);
+        }
+        catch(err){
+          alert("Incorrect XML. Check input.");
+          return;
+        }
+       
+        $meta = $( xmlDoc ).find("project").children("metadata");
+        $title = $meta.find("title");
+        $displayName = $meta.find("displayName");
+        $shortDescription = $meta.find("shortDescription");
+        $thumbnail = $meta.find("thumbnail");
+        $organization = $meta.find("organization");
+        $duration = $meta.find("duration");
+        $appName = $meta.find("appName");
+        $appVersion = $meta.find("appVersion");
+         
+         
+        $( "#title" ).html( $title.text() );
+        $( "#displayName" ).html( $displayName.text() );
+        $( "#shortDescription" ).html( $shortDescription.text() );
+        $( "#thumbnail" ).html( $thumbnail.text() );
+        $( "#organization" ).html( $organization.text() );
+        $( "#duration" ).html( $duration.text() );
+        $( "#appName" ).html( $appName.text() );
+        $( "#appVersion" ).html( $appVersion.text() );
+    }
+    </script>
+
+    <textarea rows="20" class="form-control" name="textbox1" id ="textbox1" type="text"></textarea>
+    <input name="Extract Data"
+     onclick = "parseData(document.getElementById('textbox1').value)" 
+     type="button" class="btn btn-default" value="Extract Data" /> 
+     
+    <table border="1"  class="table table-hover">
+    <tr>
+    <th>Metadata</th>
+    <th>Value</th>
+    </tr>
+    <tr>
+    <td>title</td>
+    <td id="title"></td>
+    </tr>
+    <tr>
+    <td>displayName</td>
+    <td id="displayName"></td>
+    </tr>
+    <tr>
+    <td>shortDescription</td>
+    <td id="shortDescription"></td>
+    </tr>
+    <tr>
+    <td>thumbnail</td>
+    <td id="thumbnail"></td>
+    </tr>
+    <tr>
+    <td>organization</td>
+    <td id="organization"></td>
+    </tr>
+    <tr>
+    <td>duration</td>
+    <td id="duration"></td>
+    </tr>
+    <tr>
+    <td>appName</td>
+    <td id="appName"></td>
+    </tr>
+    <tr>
+    <td>appVersion</td>
+    <td id="appVersion"></td>
+    </tr>
+    
+    
+    </table>
+    
+  </body>
+</html>
